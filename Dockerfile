@@ -22,7 +22,7 @@ ARG ALPINE_VERSION
 ENV TJS_HOME=/opt/tjs
 LABEL org.opencontainers.image.title="txiki.js Alpine"
 LABEL org.opencontainers.image.description="txiki.js runtime and bundler on Alpine Linux"
-LABEL org.opencontainers.image.source="https://github.com/fy0/password-auth-service"
+LABEL org.opencontainers.image.source="https://github.com/fy0/txiki-alpine"
 LABEL org.opencontainers.image.version="${TJS_VERSION}-alpine${ALPINE_VERSION}"
 RUN apk add --no-cache ca-certificates libffi libstdc++
 COPY --from=builder /src/txiki.js/build/tjs /usr/local/bin/tjs

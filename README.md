@@ -14,23 +14,32 @@ ghcr.io/fy0/txiki-alpine:v26.6.0-alpine3.22
 
 ```bash
 docker build \
-  -f docker/txiki-alpine/Dockerfile \
+  -f Dockerfile \
   -t ghcr.io/fy0/txiki-alpine:v26.6.0-alpine3.22 \
-  docker/txiki-alpine
+  .
 ```
 
 ## Push Multi-Arch
 
 ```bash
 docker buildx build \
-  -f docker/txiki-alpine/Dockerfile \
+  -f Dockerfile \
   --platform linux/amd64,linux/arm64 \
   --build-arg TJS_VERSION=v26.6.0 \
   --build-arg ALPINE_VERSION=3.22 \
   -t ghcr.io/fy0/txiki-alpine:v26.6.0-alpine3.22 \
   --push \
-  docker/txiki-alpine
+  .
 ```
+
+## GitHub Actions
+
+`.github/workflows/release.yml` publishes multi-arch images to GHCR:
+
+- `ghcr.io/fy0/txiki-alpine:v26.6.0-alpine3.22` from `main`
+- `ghcr.io/fy0/txiki-alpine:latest` from `v*` tags
+- `ghcr.io/fy0/txiki-alpine:<version>-alpine3.22` from `v*` tags
+- `ghcr.io/fy0/txiki-alpine:sha-<commit>` from every build
 
 ## Use As A Builder
 
@@ -41,4 +50,3 @@ COPY . .
 RUN tjs bundle --minify --sourcemap=inline src/main.ts build/app.bundle.js \
     && tjs compile build/app.bundle.js build/app
 ```
-
